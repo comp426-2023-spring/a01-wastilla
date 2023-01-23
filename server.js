@@ -37,18 +37,11 @@ fs.readFile(`./public/index.html`, 'utf-8', (err, data) => {
 // 2. set a header with content type `text/html`, and 
 // 3. end with the data that you are reading in from ./public/index.html.
 
-const server = http.createServer(function(req, res) {
-    res.writeHead(200, { 'Content-Type': 'text/html'})
-    fs.readFile('public/index.html', function(error, data) {
-        if (error) {
-            res.writeHead(404)
-            res.write("Error: File not Found")
-        } else {
-            res.write(data)
-        }
-        res.end()
+const server = http.createServer((req, res) => {
+        res.status = 200;
+        res.setHeader('Content-Type', 'text/html');
+        res.end(data);
     })
-})
 
 
 
@@ -56,14 +49,10 @@ const server = http.createServer(function(req, res) {
 // Start the `server` const listening on the port defined by argument in your `port` const. 
 // Put the exact message `Server listening on port ${port}` on the console log. 
 
-
-server.listen(port, function(error) {
-    if (error) {
-        console.log("error", error)
-    } else {
-        console.log("Server is listening on port " + port)
-    }
-})
+server.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+    })
+});
 
 
 // That's it! You're all done!
